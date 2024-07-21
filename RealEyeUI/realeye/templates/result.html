@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Result Page</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap");
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: "Poppins", sans-serif;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #0b0808; 
+        }
+        .wrapper {
+            width: 400px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            text-align: center;
+            color: #050505; /
+        }
+        .result-heading {
+            font-size: 36px;
+            margin-bottom: 30px;
+            color: #000;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.3);
+        }
+        .result-image {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            margin: 0 auto;
+            display: block;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease-in-out; 
+        }
+        .result-image:hover {
+            transform: scale(1.1); 
+        }
+        .loading {
+            width: 100px;
+            height: 100px;
+            margin: 0 auto 20px;
+            border: 8px solid #ccc;
+            border-radius: 50%;
+            border-top-color: #007bff; 
+            animation: spin 1s infinite linear; 
+        }
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+    </style>
+    <script>
+        setTimeout(function(){
+            document.getElementById("loading").style.display = "none";
+            document.getElementById("result").style.display = "block";
+        }, 2000);
+    </script>
+</head>
+<body>
+    <div id="loading" class="wrapper">
+        <div class="loading"></div>
+        <h1 class="result-heading">Analyzing...</h1>
+    </div>
+    <div id="result" class="wrapper" style="display: none;">
+        <h1 class="result-heading">Result</h1>
+        <p>The image is: {{ display_result }}</p>
+    </div>
+</body>
+</html>

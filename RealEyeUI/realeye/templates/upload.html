@@ -1,0 +1,114 @@
+
+Upload.html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Image Upload</title>
+<style>
+  body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #0b0808;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  .container {
+    background-color: rgba(255, 255, 255, 0.91);
+    padding: 40px;
+    border-radius: 20px;
+    box-shadow: 0px 8px 24px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 50px;
+    color: #060606;
+  }
+  form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+  }
+  input[type="file"] {
+    display: none;
+  }
+  label {
+    background-color: #060f07;
+    color: white;
+    padding: 12px 24px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    margin-bottom: 20px;
+    transition: background-color 0.3s ease;
+  }
+  label:hover {
+    background-color: #3c69b6;
+  }
+  button[type="submit"] {
+    background-color: #08090a;
+    color: white;
+    padding: 24px 48px;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 18px;
+    transition: background-color 0.3s ease;
+  }
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+  #uploadedImageContainer {
+    display: none; 
+    justify-content: center;
+    margin-top: 20px;
+  }
+  #uploadedImage {
+    max-width: 100%;
+    max-height: 300px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <h2>Upload an Image</h2>
+    <form action="{% url 'upload' %}" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      <input type="file" name="image" id="imageInput" accept="image/*">
+      <label for="imageInput">Choose Image</label>
+      <button type="submit">Upload</button>
+      <div id="uploadedImageContainer">
+        <img id="uploadedImage" src="" alt="Uploaded Image">
+      </div>
+    </form>
+  </div>
+  <script>
+    function displayImage(input) {
+      const uploadedImageContainer = document.getElementById('uploadedImageContainer');
+      const uploadedImage = document.getElementById('uploadedImage');
+      if (input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+          uploadedImage.src = e.target.result;
+          uploadedImageContainer.style.display = 'flex';
+        };
+        reader.readAsDataURL(input.files[0]); 
+      }
+    }
+    
+    document.getElementById('imageInput').addEventListener('change', function() {
+      displayImage(this);
+    });
+  </script>
+</body>
+</html>
+  
